@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    # Uncomment the block below once you add a database
+    # depends_on:
+    #   - db
+
+  # ---------------------------------------------------
+  # Uncomment this block when you're ready to add a DB
+  # ---------------------------------------------------
+  # db:
+  #   image: postgres:16-alpine
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     POSTGRES_USER: admin
+  #     POSTGRES_PASSWORD: secret
+  #     POSTGRES_DB: app_db
+  #   volumes:
+  #     - db_data:/var/lib/postgresql/data
+
+# volumes:
+#   db_data:
