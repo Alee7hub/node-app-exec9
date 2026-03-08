@@ -43,16 +43,13 @@ pipeline {
                 script {
                     echo 'deploying docker image to EC2...'
 
+                    def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME}:${env.NEW_VERSION}"
                     def ec2Instance = "ec2-user@18.195.204.194"
 
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        def shellCmd = "bash ./server-cmds.sh '${IMAGE_NAME}:${env.NEW_VERSION}' $DOCKER_USER $DOCKER_PASS"
-
-                        sshagent(['ec2-server-key']) {
-                            sh "scp -o StrictHostKeyChecking=no server-cmds.sh ${ec2Instance}:/home/ec2-user"
-                            sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2Instance}:/home/ec2-user"
-                            sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} '${shellCmd}'"
-                        }
+                    sshagent(['ec2-server-key']) {
+                        sh "scp -o StrictHostKeyChecking=no server-cmds.sh ${ec2Instance}:/home/ec2-user"
+                        sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2Instance}:/home/ec2-user"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} '${shellCmd}'"
                     }
                 }
             }
