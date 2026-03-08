@@ -11,7 +11,9 @@ pipeline {
     stages {
         stage('Increment Version') {
             when {
-                branch 'main'
+                expression {
+                return env.GIT_BRANCH == "main"
+                }
             }
             steps {
                 script {
@@ -28,7 +30,9 @@ pipeline {
         }
         stage('Build Docker Image') {
             when {
-                branch 'main'
+                expression {
+                return env.GIT_BRANCH == "main"
+                }
             }
             steps {
                 script {
@@ -38,7 +42,9 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                branch 'main'
+                expression {
+                return env.GIT_BRANCH == "main"
+                }
             }
             steps {
                 script {
@@ -49,7 +55,9 @@ pipeline {
         }
         stage("deploy to EC2") {
             when {
-                branch 'main'
+                expression {
+                return env.GIT_BRANCH == "main"
+                }
             }
             steps {
                 script {
@@ -68,7 +76,9 @@ pipeline {
         }
         stage('Commit Version Bump') {
             when {
-                branch 'main'
+                expression {
+                return env.GIT_BRANCH == "main"
+                }
             }
             steps {
                 script {
