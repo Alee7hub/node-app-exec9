@@ -5,8 +5,6 @@ services:
     image: ${IMAGE}
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=production
     # Uncomment the block below once you add a database
     # depends_on:
     #   - db
