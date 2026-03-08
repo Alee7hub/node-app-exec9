@@ -10,6 +10,9 @@ pipeline {
 
     stages {
         stage('Increment Version') {
+            when {
+                branch 'main'
+            }
             steps {
                 script {
                     incrementVersion('major')
@@ -24,6 +27,9 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
+            when {
+                branch 'main'
+            }
             steps {
                 script {
                     buildImage(IMAGE_NAME)
@@ -31,6 +37,9 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
+            when {
+                branch 'main'
+            }
             steps {
                 script {
                     dockerLogin()
@@ -39,6 +48,9 @@ pipeline {
             }
         }
         stage("deploy to EC2") {
+            when {
+                branch 'main'
+            }
             steps {
                 script {
                     echo 'deploying docker image to EC2...'
@@ -55,6 +67,9 @@ pipeline {
             }
         }
         stage('Commit Version Bump') {
+            when {
+                branch 'main'
+            }
             steps {
                 script {
                     commitVersionBump('github.com/Alee7hub/node-app-exec9.git')
