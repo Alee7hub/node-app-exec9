@@ -1,15 +1,15 @@
 {
   "name": "bootcamp-node-project",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "server.js",
-  "scripts": {
+  "scripts":   {
     "test": "jest",
     "start": "node server.js"
   },
   "author": "NJ",
   "license": "ISC",
-  "dependencies": {
+  "dependencies":   {
     "express": "latest",
     "jest": "latest"
   }
